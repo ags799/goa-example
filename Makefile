@@ -1,44 +1,36 @@
 NAME := goa-example
+PACKAGE := github.com/ags799/$(NAME)
 VERSION := $(shell git describe --tags --always --dirty='-dev')
+GOA_GENERATED := app client swagger tool
 
 .PHONY: all
 all: test lint
 
-$(NAME):
-	go build
-
-.PHONY: clean
-clean:
-	(test -f $(NAME) && rm $(NAME)) || true
-
 .PHONY: devtools
 devtools:
 	go get -u github.com/FiloSottile/gvt
+
+.PHONY: clean
+clean:
+	-rm -r $(NAME) $(GOA_GENERATED)
 
 .PHONY: run
 run: $(NAME)
 	./$(NAME)
 
 .PHONY: test
-test: $(NAME)
+test: generated
 	go test
 
 .PHONY: lint
-lint: $(NAME)
+lint: generated
 	golint -set_exit_status
 
-.PHONY: docker
-docker:
-	docker build -t $(NAME):$(VERSION) -t $(NAME):latest .
+$(NAME): generated
+	go build
 
-.PHONY: docker-run
-docker-run: docker
-	docker-compose up
+.PHONY: generated
+generated: app client swagger tool
 
-.PHONY: docker-stop
-docker-stop:
-	docker-compose stop
-
-.PHONY: integration-test
-integration-test:
-	go test -integration
+$(GOA_GENERATED): design/design.go
+	goagen bootstrap -d $(PACKAGE)/design

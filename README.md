@@ -6,28 +6,16 @@ An example use of [Goa](https://goa.design/).
 
 Prepare your environment by:
 - installing [Go](https://golang.org/)
-- installing [Docker](https://www.docker.com/)
+- installing [Goa](https://goa.design/). Note that the project uses Goa v1.
 - running `make devtools`
 
-Build, test, and lint with
+Test and lint with
 
     make
 
 Run with
 
     make run
-
-Integration test by first starting the Docker containers
-
-    make docker-run
-
-then running integration tests
-
-    make integration-test
-
-then stopping the Docker containers
-
-    make docker-stop
 
 We use [gvt](https://github.com/FiloSottile/gvt) for handling dependencies.
 Add a dependency with

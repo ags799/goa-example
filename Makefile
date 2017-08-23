@@ -1,4 +1,4 @@
-NAME := google-api-go-generator-example
+NAME := goa-example
 VERSION := $(shell git describe --tags --always --dirty='-dev')
 
 .PHONY: all
@@ -14,7 +14,6 @@ clean:
 .PHONY: devtools
 devtools:
 	go get -u github.com/FiloSottile/gvt
-	go get -u github.com/golang/lint/golint
 
 .PHONY: run
 run: $(NAME)

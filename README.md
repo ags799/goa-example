@@ -1,6 +1,6 @@
-# google-api-go-generator-example
+# goa example
 
-An example use of the goole-api-go-generator.
+An example use of [Goa](https://goa.design/).
 
 ## Development
 
